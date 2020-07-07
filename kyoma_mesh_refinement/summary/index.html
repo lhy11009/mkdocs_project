@@ -273,6 +273,35 @@
     </ul>
                     </li>
                 </ul>
+                <p class="caption"><span class="caption-text">kyoma_mesh_refinement_2</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../kyoma_mesh_refinement_2/summary/">Summary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">kyoma_mesh_refinementULV3.000e+01testIAR10LR2MRFH6MRFS8</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../kyoma_mesh_refinement_2/kyoma_mesh_refinementULV3.000e%2B01testIAR10LR2MRFH6MRFS8/summary/">Summary</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../kyoma_mesh_refinement_2/kyoma_mesh_refinementULV3.000e%2B01testIAR10LR2MRFH6MRFS8/case.prm">Parameters</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">kyoma_mesh_refinementULV3.000e+01testIAR10LR1MRFH6MRFS8</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../kyoma_mesh_refinement_2/kyoma_mesh_refinementULV3.000e%2B01testIAR10LR1MRFH6MRFS8/summary/">Summary</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../kyoma_mesh_refinement_2/kyoma_mesh_refinementULV3.000e%2B01testIAR10LR1MRFH6MRFS8/case.prm">Parameters</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">kyoma_mesh_refinementULV3.000e+01testIAR10LR3MRFH6MRFS8</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../kyoma_mesh_refinement_2/kyoma_mesh_refinementULV3.000e%2B01testIAR10LR3MRFH6MRFS8/summary/">Summary</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../kyoma_mesh_refinement_2/kyoma_mesh_refinementULV3.000e%2B01testIAR10LR3MRFH6MRFS8/case.prm">Parameters</a>
+                </li>
+    </ul>
+                    </li>
+                </ul>
       </div>
     </div>
     </nav>
@@ -320,6 +349,35 @@
 <p>LowerV: 1.5e-06</p>
 <p>P660: 21000000000.0</p>
 <p>T660: 1663.0</p>
+<h1 id="issue-on-composition-with-minimum-refinement-function-only">Issue on composition with minimum refinement function only</h1>
+<h2 id="clear-error-iar11lr1">clear error: IAR11LR1</h2>
+<p>light lines, and blue that interupts what should be red. See the PvMesh0 picture in this case.</p>
+<h2 id="subtle-error-iar8lr2-iar8lr3">subtle error: IAR8LR2, IAR8LR3</h2>
+<p>lighter blue or red on coarser mesh, with darker blue or red inside the square on finer mesh.</p>
+<h2 id="fine-iar8lr1-iar11lr3">fine: IAR8LR1, IAR11LR3</h2>
+<p><span style="color:red"><strong>what happens to the IAR11LR2 case which should be the same as a previous case?</strong></span></p>
+<h1 id="comments-by-magali-on-this-group">Comments by Magali on this group</h1>
+<h2 id="on-setting-of-the-solver-parameters">On setting of the Solver parameters</h2>
+<pre><code>subsection Solver parameters
+    set Composition solver tolerance = 1e-12
+    set Temperature solver tolerance = 1e-12
+    subsection Stokes solver parameters
+        set Linear solver tolerance = 1e-7
+    end
+end
+</code></pre>
+<p>You should set all these values to large numbers (1e-5).. so you can get through the first time-step very quickly. The mesh refinement with just the minimum refinement function does not depend on the solution in anyway.</p>
+<h2 id="possible-causasion-of-the-error">Possible causasion of the error</h2>
+<p>A combination of:</p>
+<ul>
+<li>geometry</li>
+<li>a combination of d the repetitions and total number of elements</li>
+<li>total mesh refinement &gt; minimux refinement function</li>
+</ul>
+<h2 id="next-group-of-tests">Next group of tests</h2>
+<p>try instead to keep the initial adaptive mesh refinement to a fixed value (maybe 10), and then decrease the values in the minimum refinement function to 8 and 6. And then run this with repetitions of 1, 2 and 3.  Then reduce it to 6 and 4 and repeat the test with repetitions = 1, 2, and 3.</p>
+<h2 id="about-setting-the-values-in-the-minimum-refinment-function">about setting the values in the minimum refinment function</h2>
+<p>apparently we should be using 1 or more consistently</p>
               
             </div>
           </div>
