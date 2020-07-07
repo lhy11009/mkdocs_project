@@ -378,6 +378,25 @@
 <p>LowerV: 1.5e-06</p>
 <p>P660: 21000000000.0</p>
 <p>T660: 1663.0</p>
+<h1 id="issue-on-composition-with-minimum-refinement-function-only">Issue on composition with minimum refinement function only</h1>
+<h2 id="clear-error-iar3lr1-iar4lr1">clear error: IAR3LR1, IAR4LR1</h2>
+<p>light lines, and blue that interupts what should be red. See the PvMesh0 picture in this case.</p>
+<h2 id="subtle-error-iar3lr3">subtle error: IAR3LR3</h2>
+<p>lighter blue or red on coarser mesh, with darker blue or red inside the square on finer mesh.</p>
+<h2 id="fine-or-perhaps-subtler-error-iar3lr2-iar4lr2-iar4lr3">fine or perhaps subtler error: IAR3LR2, IAR4LR2, IAR4LR3</h2>
+<h1 id="haoyuans-comments">Haoyuan's comments</h1>
+<p>We have IAR = 3 for these case and our Initial global refinement = 6, which means we are at 9 for a maximux refinement. This would be differenet from previous group with Initial global refinement = 10. Thus we can compare this two groups.</p>
+<h2 id="comparison">comparison</h2>
+<ul>
+<li>Eliminate additional vacant refinement doesn't prevent the error from happening, so that should not be the reason.</li>
+<li>This group is consistent with previous group to present clear error in cases with LR=1. LR has to be related with the problem.</li>
+<li>Go from IAR4 ot IAR3 doesn't solve the problem. So higher order of actual mesh doesn't seem to be the problem</li>
+</ul>
+<h2 id="what-i-want-to-do-for-the-next-test">What I want to do for the next test</h2>
+<ul>
+<li>We could follow the idea of creating a simpler test case, where we may see this at coaser refinement level.</li>
+<li>We could test the catesian geometry to assert that this is not a problem there.</li>
+</ul>
               
             </div>
           </div>
