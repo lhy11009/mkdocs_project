@@ -54,14 +54,15 @@ subsection Mesh refinement
     set Initial global refinement = 5
     set Initial adaptive refinement = 6
     set Minimum refinement level = 5
-    set Strategy = isosurfaces, minimum refinement function, viscosity, composition approximate gradient
-    set Refinement fraction = 0.70
-    set Coarsening fraction = 0.20
+    set Strategy = isosurfaces, minimum refinement function, composition approximate gradient, viscosity
+    set Refinement criteria scaling factors = 1.0, 1.0, 1.0, 0.5
+    set Refinement fraction = 0.7
+    set Coarsening fraction = 0.2
     set Time steps between mesh refinement = 10
     set Run postprocessors on initial refinement = true
     set Skip solvers on initial refinement = true
     subsection Isosurfaces
-        set Isosurfaces = 10, 12, spcrust: 0.5 | 1.0;  10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0;
+        set Isosurfaces = 11, 12, spcrust: 0.5 | 1.0;  10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0;
     end
     subsection Minimum refinement function
         set Coordinate system = spherical
