@@ -1,13 +1,14 @@
 set Dimension = 2
 set Use years in output instead of seconds = true
 set Start time = 0
-set End time = 20e6
+set End time = 0.0
 set Output directory = output
-set Additional shared libraries = /home/lochy/softwares/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/softwares/aspect/plugins/prescribe_field/libprescribed_temperature.so
+set Additional shared libraries = /home/lochy/software/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/software/aspect/plugins/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
 set Surface pressure = 0
 set Adiabatic surface temperature = 273
 set Nonlinear solver scheme = single Advection, single Stokes
+set Prescribe internal temperatures = true
 
 subsection Solver parameters
     set Composition solver tolerance = 1e-5
@@ -52,17 +53,11 @@ end
 
 subsection Mesh refinement
     set Initial global refinement = 5
-    set Initial adaptive refinement = 6
+    set Initial adaptive refinement = 0
     set Minimum refinement level = 5
-    set Strategy = isosurfaces, minimum refinement function, viscosity, composition approximate gradient
-    set Refinement fraction = 0.0
-    set Coarsening fraction = 0.0
     set Time steps between mesh refinement = 10
     set Run postprocessors on initial refinement = true
     set Skip solvers on initial refinement = false
-    subsection Isosurfaces
-        set Isosurfaces = 10, 12, spcrust: 0.5 | 1.0;  10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0;
-    end
     subsection Minimum refinement function
         set Coordinate system = spherical
         set Variable names = r,phi,t
@@ -185,8 +180,8 @@ subsection Prescribed temperatures
         set Function constants = Depth=1.45e5, Width=2.75e5, Ro=6.371e6, PHIM=1.065,\
                              AGEOP=1.26144e15, TS=2.730e+02, TM=1.673e+03, K=1.000e-06, VSUB=1.58549e-09
         set Function expression = TS
-        #set Function expression = ((r*(PHIM-phi)<Width) ? TS+(TM-TS)*(1-erfc(abs(Ro-r)/(2*sqrt(K*AGEOP)))):\
-                              #(TS+(TM-TS)*(1-erfc(abs(Ro-r)/(2*sqrt(K*Ro*phi/VSUB))))))
+        # set Function expression = ((r*(PHIM-phi)<Width) ? TS+(TM-TS)*(1-erfc(abs(Ro-r)/(2*sqrt(K*AGEOP)))):\
+                              # (TS+(TM-TS)*(1-erfc(abs(Ro-r)/(2*sqrt(K*Ro*phi/VSUB))))))
     end
 end
 
