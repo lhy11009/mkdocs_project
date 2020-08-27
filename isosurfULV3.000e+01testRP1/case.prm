@@ -1,7 +1,7 @@
 set Dimension = 2
 set Use years in output instead of seconds = true
 set Start time = 0
-set End time = 0.0
+set End time = 10e3
 set Output directory = output
 set Additional shared libraries = /home/lochy/software/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/software/aspect/plugins/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
@@ -200,3 +200,6 @@ subsection Postprocess
     end
 end
 
+subsection Checkpointing
+	set Steps between checkpoint = 1
+end
