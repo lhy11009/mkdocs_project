@@ -1,14 +1,15 @@
 set Dimension = 2
 set Use years in output instead of seconds = true
 set Start time = 0
-set End time = 10e3
+set End time = 10e5
 set Output directory = output
-set Additional shared libraries = /home/lochy/software/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/software/aspect/plugins/prescribe_field/libprescribed_temperature.so
+set Additional shared libraries = /home/lochy/softwares/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/softwares/aspect/plugins/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
 set Surface pressure = 0
 set Adiabatic surface temperature = 273
 set Nonlinear solver scheme = single Advection, single Stokes
 set Prescribe internal temperatures = true
+set Resume computation = false
 
 subsection Solver parameters
     set Composition solver tolerance = 1e-5
@@ -203,3 +204,4 @@ end
 subsection Checkpointing
 	set Steps between checkpoint = 1
 end
+
