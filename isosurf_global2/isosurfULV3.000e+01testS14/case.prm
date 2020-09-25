@@ -2,14 +2,19 @@ set Dimension = 2
 set Use years in output instead of seconds = true
 set Start time = 0
 set End time = 10e6
-set Output directory = output1
+set Output directory = output
 set Additional shared libraries = /home/lochy/software/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/software/aspect/plugins/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
 set Surface pressure = 0
 set Adiabatic surface temperature = 273
-set Nonlinear solver scheme = single Advection, single Stokes
 set Prescribe internal temperatures = true
 set Resume computation = false
+
+set Nonlinear solver scheme = single Advection, iterated Newton Stokes
+set CFL number                             = 0.25
+set Max nonlinear iterations = 25
+set Max nonlinear iterations in pre-refinement = 0
+set Nonlinear solver tolerance = 1e-6
 
 subsection Discretization
     set Composition polynomial degree = 2
@@ -21,6 +26,22 @@ subsection Discretization
         set Global composition maximum = 1, 1, 1, 1
         set Global composition minimum = 0, 0, 0, 0
     end
+end
+
+
+
+subsection Solver parameters
+  subsection Newton solver parameters
+      set Max pre-Newton nonlinear iterations = 20
+      set Nonlinear Newton solver switch tolerance = 1e-3
+      set Max Newton line search iterations = 0
+      set Maximum linear Stokes solver tolerance =  5e-2
+      set Use Newton residual scaling method = true
+      set Use Newton failsafe = true
+      set Stabilization preconditioner = SPD
+      set Stabilization velocity block = SPD
+      set Use Eisenstat Walker method for Picard iterations = true
+  end
 end
 
 
@@ -142,10 +163,10 @@ subsection Material model
         set Densities = background:3300.0|3300.0, spcrust:3000, spharz:3235, opcrust:3000, opharz:3235
         set Thermal expansivities = background:3.1e-5|3.1e-5, spcrust:3.1e-5, spharz:3.1e-5, opcrust:3.1e-5, opharz:3.1e-5
         set Viscosity averaging scheme = harmonic
-        set Viscous flow law = diffusion
+        set Viscous flow law = composite
         set Yield mechanism = drucker
         set Grain size = 1.0000e-02
-        set Prefactors for diffusion creep = background:1.4250e-15|1.0657e-18, spcrust:5.0000e-20, spharz:1.4250e-15, opcrust:1.4250e-15, opharz:1.4250e-15
+        set Prefactors for diffusion creep = background:1.4250e-15|1.0657e-18, spcrust:5.0000e-21, spharz:1.4250e-15, opcrust:1.4250e-15, opharz:1.4250e-15
         set Grain size exponents for diffusion creep = background:3.0000e+00|3.0000e+00, spcrust:0.0000e+00, spharz:3.0000e+00, opcrust:3.0000e+00, opharz:3.0000e+00
         set Activation energies for diffusion creep = background:3.1700e+05|3.1700e+05, spcrust:0.0000e+00, spharz:3.1700e+05, opcrust:3.1700e+05, opharz:3.1700e+05
         set Activation volumes for diffusion creep = background:4.0000e-06|1.5000e-06, spcrust:0.0000e+00, spharz:4.0000e-06, opcrust:4.0000e-06, opharz:4.0000e-06
@@ -155,6 +176,23 @@ subsection Material model
         set Activation volumes for dislocation creep = background:11.0e-6, spcrust:11.0e-6, spharz:11.0e-6, opcrust:11.0e-6, opharz:11.0e-6
         set Angles of internal friction = 25.0,     25.00,     25.00,     25.00,     25.00
         set Cohesions = 50.e6,     50.e6,     50.e6,     50.e6,     50.e6
+        set Reset viscosity = true
+        subsection Reset viscosity function
+            set Coordinate system = spherical
+            set Variable names = r, phi
+            set Function constants = Depth=1.45e5, Width=2.75e5, Ro=6.371e6, PHIM=1.065, CV=1e20
+            set Function expression = (((r > Ro - Depth) && ((Ro*phi < Width) || (Ro*(PHIM-phi) < Width)))? CV: -1.0)
+        end
+        set Reaction mor = true
+        subsection Reaction mor function
+            set Coordinate system = spherical
+            set Variable names = r, phi
+            set Function constants = Width=2.75e5, Ro=6.371e6, PHIM=1.065, DCS=7.500e+03, DHS=3.520e+04
+            set Function expression = ((r > Ro - DCS) && (Ro*phi < Width)) ? 0:\
+                                        ((r < Ro - DCS) && (r > Ro - DHS) && (Ro*phi < Width)) ? 1:\
+                                        ((r > Ro - DCS) && (Ro*(PHIM - phi) < Width)) ? 2:\
+                                        ((r < Ro - DCS) && (r > Ro - DHS) && (Ro*(PHIM - phi) < Width)) ? 3: -1
+        end
     end
 end
 
@@ -183,7 +221,7 @@ end
 
 
 subsection Postprocess
-    set List of postprocessors = visualization, velocity statistics, temperature statistics, depth average
+    set List of postprocessors = visualization, velocity statistics, temperature statistics, depth average, particles
     subsection Depth average
         set Number of zones = 50
         set Output format = txt
@@ -193,6 +231,17 @@ subsection Postprocess
         set List of output variables = density, viscosity, error indicator
         set Output format = vtu
         set Time between graphical output = 0.1e6
+    end
+    subsection Particles
+        set Particle generator name = ascii file
+        set Data output format = vtu
+        set List of particle properties = initial position, pT path
+        subsection Generator
+            subsection Ascii file
+                set Data directory = ./
+                set Data file name = particle.dat
+            end
+        end
     end
 end
 
