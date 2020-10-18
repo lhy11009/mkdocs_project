@@ -34,7 +34,7 @@ subsection Solver parameters
     end
     subsection Newton solver parameters
         set Max Newton line search iterations = 5
-        set Max pre-Newton nonlinear iterations = 20
+        set Max pre-Newton nonlinear iterations = 25
         set Maximum linear Stokes solver tolerance = 1e-1
         set Nonlinear Newton solver switch tolerance = 1e-7
         set SPD safety factor = 0.9

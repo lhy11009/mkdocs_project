@@ -3,7 +3,7 @@ set Use years in output instead of seconds = true
 set Start time = 0
 set End time = 10e6
 set Output directory = output
-set Additional shared libraries = /home/lochy/softwares/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/softwares/aspect/plugins/prescribe_field/libprescribed_temperature.so
+set Additional shared libraries = /home/lochy/software/aspect/plugins/subduction_temperature2d/libsubduction_temperature2d.so, /home/lochy/software/aspect/plugins/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
 set Surface pressure = 0
 set Adiabatic surface temperature = 273
@@ -34,7 +34,7 @@ subsection Solver parameters
     end
     subsection Newton solver parameters
         set Max Newton line search iterations = 5
-        set Max pre-Newton nonlinear iterations = 20
+        set Max pre-Newton nonlinear iterations = 25
         set Maximum linear Stokes solver tolerance = 1e-1
         set Nonlinear Newton solver switch tolerance = 1e-7
         set SPD safety factor = 0.9
