@@ -69,7 +69,7 @@ subsection Mesh refinement
     set Strategy = isosurfaces, minimum refinement function, viscosity
     set Time steps between mesh refinement = 10
     set Run postprocessors on initial refinement = true
-    set Skip solvers on initial refinement = true
+    set Skip solvers on initial refinement = false
     set Coarsening fraction = 0.1
     set Refinement fraction = 0.3
     subsection Isosurfaces
