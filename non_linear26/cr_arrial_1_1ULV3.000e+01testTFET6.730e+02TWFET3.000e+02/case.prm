@@ -1,7 +1,7 @@
 set Dimension = 2
 set Use years in output instead of seconds = true
 set Start time = 0
-set End time = 0.0
+set End time = 10e6
 set Output directory = output
 set Additional shared libraries = $ASPECT_SOURCE_DIR/build_TwoDSubduction/subduction_temperature2d/libsubduction_temperature2d.so, $ASPECT_SOURCE_DIR/build_TwoDSubduction/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
@@ -11,7 +11,7 @@ set Prescribe internal temperatures = true
 set Resume computation = false
 set Nonlinear solver scheme = iterated Advection and Newton Stokes
 set CFL number = 0.5
-set Max nonlinear iterations = 100
+set Max nonlinear iterations = 400
 set Max nonlinear iterations in pre-refinement = 0
 set Nonlinear solver tolerance = 1e-4
 
