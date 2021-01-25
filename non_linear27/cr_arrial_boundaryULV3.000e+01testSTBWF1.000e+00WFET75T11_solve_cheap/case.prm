@@ -75,7 +75,8 @@ subsection Mesh refinement
     set Run postprocessors on initial refinement = true
     set Skip solvers on initial refinement = true
     subsection Isosurfaces
-        set Isosurfaces = 11, 12, spcrust: 0.5 | 1.0; 10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0; 9, 12, opharz: 0.5 | 1.0; 11, 12, Temperature: 270.0 | 873.0; 10, 12, Temperature: 270.0 | 1173.0
+        set Isosurfaces = 11, 12, spcrust: 0.5 | 1.0; 10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0; 9, 12, opharz: 0.5 | 1.0; 11, 12, Temperature: 270.0 | 1173.0
+        set Minimum depth for temperature = 30e3
     end
     subsection Minimum refinement function
         set Coordinate system = spherical
