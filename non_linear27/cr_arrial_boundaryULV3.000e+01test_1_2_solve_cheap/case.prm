@@ -165,7 +165,7 @@ subsection Material model
         set Phase transition widths = background:5e3, spcrust: 0.0|5e3, spharz:5e3
         set Phase transition temperatures = background:1662.0, spcrust: 1173.0|1662.0, spharz:1662.0
         set Phase transition Clapeyron slopes = background:-2e6, spcrust: 0.0|-2e6, spharz:-2e6
-        set Manually define phase method crust = background:0.0, spcrust: 1.2|1.2, spharz:0.0
+        set Manually define phase method crust = background:0.0, spcrust: 1.1|1.1, spharz:0.0
         set Thermal diffusivities = 1.0e-6, 1.0e-6, 1.0e-6, 1.0e-6,1.0e-6
         set Heat capacities = 1250.0
         set Densities = background:3300.0|3300.0, spcrust:3000.0|3300.0|3300.0, spharz:3235.0|3300.0, opcrust:3000.0, opharz:3235.0
