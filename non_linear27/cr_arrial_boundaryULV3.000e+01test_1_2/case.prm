@@ -1,7 +1,7 @@
 set Dimension = 2
 set Use years in output instead of seconds = true
 set Start time = 0
-set End time = 0
+set End time = 10e6
 set Output directory = output
 set Additional shared libraries = $ASPECT_SOURCE_DIR/build_TwoDSubduction/subduction_temperature2d/libsubduction_temperature2d.so, $ASPECT_SOURCE_DIR/build_TwoDSubduction/prescribe_field/libprescribed_temperature.so
 set Pressure normalization = surface
@@ -11,7 +11,7 @@ set Prescribe internal temperatures = true
 set Resume computation = false
 set Nonlinear solver scheme = iterated Advection and Newton Stokes
 set CFL number = 0.5
-set Max nonlinear iterations = 1
+set Max nonlinear iterations = 100
 set Max nonlinear iterations in pre-refinement = 0
 set Nonlinear solver tolerance = 1e-4
 
@@ -39,10 +39,6 @@ subsection Solver parameters
         set Stabilization preconditioner = SPD
         set Stabilization velocity block = SPD
         set Use Eisenstat Walker method for Picard iterations = true
-    end
-    subsection Stokes solver parameters 
-        set Number of cheap Stokes solver steps = 0 
-        set Linear solver tolerance = 1.0 
     end
 end
 
@@ -73,9 +69,9 @@ subsection Mesh refinement
     set Strategy = isosurfaces, minimum refinement function
     set Time steps between mesh refinement = 10
     set Run postprocessors on initial refinement = true
-    set Skip solvers on initial refinement = true
+    set Skip solvers on initial refinement = false
     subsection Isosurfaces
-        set Isosurfaces = 11, 12, spcrust: 0.5 | 1.0; 10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0; 9, 12, opharz: 0.5 | 1.0; 11, 12, Temperature: 270.0 | 1173.0
+        set Isosurfaces = 11, 12, spcrust: 0.5 | 1.0; 10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0; 9, 12, opharz: 0.5 | 1.0; 10, 12, Temperature: 270.0 | 1173.0
         set Minimum depth for temperature = 30e3
     end
     subsection Minimum refinement function
