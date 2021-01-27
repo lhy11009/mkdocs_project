@@ -206,7 +206,7 @@ subsection Material model
             set Pressure for eclogite transition = 1.5e9
             set Pressure width for eclogite transition = 0.5e9
             set Max pressure for eclogite transition = 5e9
-            set Max pressure width for eclogite transition = 0.5e9
+            set Max pressure width for eclogite transition = 1.5e9
         end
     end
 end
