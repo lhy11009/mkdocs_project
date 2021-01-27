@@ -43,7 +43,7 @@ subsection Solver parameters
     subsection Stokes solver parameters 
         set Number of cheap Stokes solver steps = 0 
         set Linear solver tolerance = 1.0 
-    end 
+    end
 end
 
 
@@ -73,10 +73,9 @@ subsection Mesh refinement
     set Strategy = isosurfaces, minimum refinement function
     set Time steps between mesh refinement = 10
     set Run postprocessors on initial refinement = true
-    set Skip solvers on initial refinement = false
+    set Skip solvers on initial refinement = true
     subsection Isosurfaces
         set Isosurfaces = 11, 12, spcrust: 0.5 | 1.0; 10, 12, spharz: 0.5 | 1.0;  10, 12, opcrust: 0.5 | 1.0; 9, 12, opharz: 0.5 | 1.0; 10, 12, Temperature: 270.0 | 1173.0
-        set Minimum depth for temperature = 70e3
     end
     subsection Minimum refinement function
         set Coordinate system = spherical
@@ -95,10 +94,6 @@ end
 
 subsection Initial temperature model
     set Model name = subduction 2d temperature
-    subsection Subduction 2d temperature
-        set Thermal boundary width factor in = 1.0
-        set Thermal boundary width factor out = 1.0
-    end
 end
 
 
@@ -165,7 +160,7 @@ subsection Material model
         set Phase transition widths = background:5e3, spcrust: 0.0|5e3, spharz:5e3
         set Phase transition temperatures = background:1662.0, spcrust: 1173.0|1662.0, spharz:1662.0
         set Phase transition Clapeyron slopes = background:-2e6, spcrust: 0.0|-2e6, spharz:-2e6
-        set Manually define phase method crust = background:0.0, spcrust: 1.1|1.1, spharz:0.0
+        set Manually define phase method crust = background:0.0, spcrust: 1.2|1.2, spharz:0.0
         set Thermal diffusivities = 1.0e-6, 1.0e-6, 1.0e-6, 1.0e-6,1.0e-6
         set Heat capacities = 1250.0
         set Densities = background:3300.0|3300.0, spcrust:3000.0|3300.0|3300.0, spharz:3235.0|3300.0, opcrust:3000.0, opharz:3235.0
@@ -203,7 +198,7 @@ subsection Material model
         end
         subsection Eclogite transition
             set Temperature for eclogite transition = 673.0
-            set Temperature width for eclogite transition = 75.0
+            set Temperature width for eclogite transition = 200.0
             set Pressure for eclogite transition = 1.5e9
             set Pressure width for eclogite transition = 0.5e9
             set Max pressure for eclogite transition = 5e9
