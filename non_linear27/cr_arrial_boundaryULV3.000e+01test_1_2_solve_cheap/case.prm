@@ -94,6 +94,9 @@ end
 
 subsection Initial temperature model
     set Model name = subduction 2d temperature
+    subsection Subduction 2d temperature
+        set Thermal boundary width factor out = 0.25
+    end
 end
 
 
